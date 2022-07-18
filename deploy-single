@@ -11,14 +11,14 @@ export FTP_PROXY=${FTP_PROXY:-""}
 export NO_PROXY=${NO_PROXY:-".intel.com,intel.com,localhost,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"}
 
 ## inventory.yml
-INVENTORY=(
+INVENTORY_DEF=(
     '.all.vars.single_node_deployment=true'
     '.controller_group.hosts.controller.ansible_host=strenv(SINGLE_HOST)'
     '.edgenode_group.hosts.node01.ansible_host=strenv(SINGLE_HOST)'
 )
 
 ## 10-default.yml
-VARS=(
+VARS_DEF=(
     '.proxy_env.http_proxy=strenv(HTTP_PROXY)'
     '.proxy_env.https_proxy=strenv(HTTP_PROXY)'
     '.proxy_env.ftp_proxy=strenv(FTP_PROXY)'
@@ -30,6 +30,10 @@ VARS=(
     '.platform_attestation_node=false'
     '.sgx_enabled=false'
 )
+
+## assign default
+INVENTORY=("${INVENTORY[@]:-${INVENTORY_DEF[@]}}")
+VARS=("${VARS[@]:-${VARS_DEF[@]}}")
 
 deps() {
     echo "Install deps"
