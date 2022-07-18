@@ -2,10 +2,10 @@
 
 ## Script path
 SCRIPT_ROOT=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
-STM_ROOT=$(cd $SCRIPT_ROOT/.. && pwd)
+TT_ROOT=$(cd $SCRIPT_ROOT/.. && pwd)
 
-. $STM_ROOT/lib/env.sh
-. $STM_ROOT/case/single/env.sh
+. $TT_ROOT/lib/env.sh
+. $TT_ROOT/case/single/env.sh
 
 export SINGLE_HOST=${SINGLE_HOST:-127.0.0.1}
 export DEK_HOME=${DEK_HOME:-"$SCRIPT_ROOT"}
