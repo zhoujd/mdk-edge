@@ -6,6 +6,7 @@ README
     $ cd script
     $ ./deploy-single
     Usage: deploy-single {deps|update|verify|deploy}
+    $ ./deploy-single deps
     $ ./deploy-single update
     $ ./deploy-single verify
     $ ./deploy-single deploy
@@ -17,6 +18,7 @@ README
     Use: tt single [argv]
     $ tt single
     Usage: single {deps|update|verify|deploy}
+    $ tt single deps
     $ tt single update
     $ tt single verify
     $ tt single deploy
