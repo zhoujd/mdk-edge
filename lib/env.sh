@@ -1,8 +1,5 @@
 ## env.sh
 
-export SINGLE_HOST=${SINGLE_HOST:-127.0.0.1}
-export DEK_HOME=${DEK_HOME:-`pwd`}
-
 config() {
     local file=$1
     shift

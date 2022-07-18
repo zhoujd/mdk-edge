@@ -1,4 +1,7 @@
-## single env.sh
+## env.sh
+
+export SINGLE_HOST=${SINGLE_HOST:-127.0.0.1}
+export DEK_HOME=${DEK_HOME:-`pwd`}
 
 ## inventory.yml
 INVENTORY=(
