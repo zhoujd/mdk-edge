@@ -1,4 +1,11 @@
-mdk-edge
-========
+README
+======
 
-## Scripts deploy DEK single node
+## Script for deploy DEK single node
+
+    $ cd script
+    $ ./deploy-single
+    Usage: deploy-single {deps|update|verify|deploy}
+    $ ./deploy-single update
+    $ ./deploy-single verify
+    $ ./deploy-single deploy

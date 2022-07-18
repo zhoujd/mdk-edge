@@ -1,7 +1,7 @@
 #!/bin/bash
 
-## Get script path
-SCRIPT_ROOT=$(cd $(dirname $0) && pwd)
+## Script path
+SCRIPT_ROOT=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
 . $SCRIPT_ROOT/env.sh
 

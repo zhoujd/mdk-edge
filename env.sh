@@ -1,25 +1,18 @@
-## env.sh
+### env.sh
 
-export SINGLE_HOST=${SINGLE_HOST:-127.0.0.1}
-export DEK_HOME=${DEK_HOME:-`pwd`}
+SCRIPT_ROOT=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
-config() {
-    local file=$1
-    shift
-    local vars=("$@")
-    for i in "${vars[@]}"; do
-        echo "[$file][update] $i"
-        yq -i $i $file
-    done
+## sudo yum install redhat-lsb-core
+## sudo pacman -S lsb-release
+
+add_path() {
+    ARG=$1
+    if [ -d "$ARG" ] && [[ ":$PATH:" != *":$ARG:"* ]]; then
+        PATH="$ARG${PATH:+":$PATH"}"
+    fi
+
+    export PATH
 }
 
-query() {
-    local file=$1
-    shift
-    local vars=("$@")
-    for i in "${vars[@]}"; do
-        key=(${i//=/ })
-        value=`yq ${key[0]} $file`
-        echo "[$file][query] $key=$value"
-    done
-}
+add_path $SCRIPT_ROOT
+unset add_path
