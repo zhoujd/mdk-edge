@@ -23,7 +23,8 @@ README
     $ tt single verify
     $ tt single deploy
 
-## Modify DEK single node deployment
+## Modify DEK single node deployment in tt
 
     $ vim case/single/env.sh
     $ vim tt-core/single
+    $ tt
