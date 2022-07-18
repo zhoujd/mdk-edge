@@ -3,6 +3,8 @@
 ## Get script path
 SCRIPT_ROOT=$(cd $(dirname $0) && pwd)
 
+. $SCRIPT_ROOT/env.sh
+
 export SINGLE_HOST=${SINGLE_HOST:-127.0.0.1}
 export DEK_HOME=${DEK_HOME:-"$SCRIPT_ROOT"}
 export HTTP_PROXY=${HTTP_PROXY:-""}
@@ -51,32 +53,11 @@ check() {
     fi
 }
 
-config() {
-    local file=$1
-    shift
-    local vars=("$@")
-    for i in "${vars[@]}"; do
-        echo "[$file][update] $i"
-        yq -i $i $file
-    done
-}
-
 update() {
     echo "Update DEK"
     config $DEK_HOME/inventory.yml "${INVENTORY[@]}" 
     config $DEK_HOME/inventory/default/group_vars/all/10-default.yml "${VARS[@]}"
     echo "Update DEK Done"
-}
-
-query() {
-    local file=$1
-    shift
-    local vars=("$@")
-    for i in "${vars[@]}"; do
-        key=(${i//=/ })
-        value=`yq ${key[0]} $file`
-        echo "[$file][query] $key=$value"
-    done
 }
 
 verify() {
