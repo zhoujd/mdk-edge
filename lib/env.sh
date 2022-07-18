@@ -6,8 +6,8 @@ config() {
     shift
     local vars=("$@")
     for i in "${vars[@]}"; do
-        echo "[$file][update] $i"
         yq -i $i $file
+        echo "[$file][update] $i"
     done
 }
 
