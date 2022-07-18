@@ -73,6 +73,10 @@ deploy() {
     echo "Deploy DEK Done"
 }
 
+usage() {
+    echo "Usage: $(basename $0) {deps|update|verify|deploy}"
+}
+
 main() {
     case $1 in
         deps )
@@ -91,7 +95,7 @@ main() {
             deploy
             ;;
         * )
-            echo "Usage: $(basename $0) {deps|update|verify|deploy}"
+            usage
             ;;
     esac
 }
