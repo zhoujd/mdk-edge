@@ -30,6 +30,6 @@ delete() {
     local vars=("$@")
     for i in "${vars[@]}"; do
         value=`yq $i $file`
-        echo "[$file][delete] $key=$value"
+        echo "[$file] $i"
     done
 }
