@@ -1,16 +1,19 @@
 ## env.sh
 
+## inventory.yml
 export SINGLE_HOST=${SINGLE_HOST:-127.0.0.1}
 export DEK_HOME=${DEK_HOME:-`pwd`}
-
-## inventory.yml
 INVENTORY=(
     '.all.vars.single_node_deployment=true'
     '.controller_group.hosts.controller.ansible_host=strenv(SINGLE_HOST)'
     '.edgenode_group.hosts.node01.ansible_host=strenv(SINGLE_HOST)'
 )
 
-## 10-default.yml
+## inventory/default/group_vars/all/10-default.yml
+export HTTP_PROXY=${HTTP_PROXY:-""}
+export HTTP_PROXY=${HTTPS_PROXY:-""}
+export FTP_PROXY=${FTP_PROXY:-""}
+export NO_PROXY=${NO_PROXY:-".intel.com,intel.com,localhost,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"}
 VARS=(
     '.proxy_env.http_proxy=strenv(HTTP_PROXY)'
     '.proxy_env.https_proxy=strenv(HTTP_PROXY)'
