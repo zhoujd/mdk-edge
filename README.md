@@ -10,13 +10,13 @@ README
     $ ./deploy-single verify
     $ ./deploy-single deploy
 
-## Deploy DEK single node with stm
+## Deploy DEK single node with tt
 
     $ . env.sh
-    $ stm
-    Use: stm single [argv]
-    $ stm single
+    $ tt
+    Use: tt single [argv]
+    $ tt single
     Usage: single {deps|update|verify|deploy}
-    $ stm single update
-    $ stm single verify
-    $ stm single deploy
+    $ tt single update
+    $ tt single verify
+    $ tt single deploy

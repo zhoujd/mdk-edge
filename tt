@@ -5,7 +5,7 @@
 import os
 import sys
 
-coredirname = "stm-core"
+coredirname = "tt-core"
 okapidirname = "okapi"  # okapi path
 helpdoc = None
 
