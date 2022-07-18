@@ -71,8 +71,6 @@ deploy() {
 }
 
 main() {
-    echo "Welcome to Zach's DEK delploy script!"
-    echo "Good luck and have fun!"
     case $1 in
         deps )
             deps
