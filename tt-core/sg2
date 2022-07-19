@@ -1,0 +1,73 @@
+#!/bin/bash
+
+## Script path
+SCRIPT_ROOT=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+TT_ROOT=$(cd $SCRIPT_ROOT/.. && pwd)
+
+. $TT_ROOT/lib/env.sh
+. $TT_ROOT/case/sg2/env.sh
+
+deps() {
+    echo "Install deps"
+    local version=v4.26.1
+    local binary=yq_linux_amd64
+    sudo wget https://github.com/mikefarah/yq/releases/download/${version}/${binary} -O /usr/bin/yq
+    sudo chmod +x /usr/bin/yq
+    echo "Install deps Done"
+}
+
+check() {
+    if [ ! -f "$DEK_HOME/single_node_network_edge.yml" ]; then
+        echo "Can't find DEK, please set env DEK_HOME before run the script"
+        exit 1
+    fi
+}
+
+update() {
+    echo "Update DEK"
+    config $DEK_HOME/inventory.yml "${INVENTORY[@]}" 
+    config $DEK_HOME/inventory/default/group_vars/all/10-default.yml "${VARS[@]}"
+    echo "Update DEK Done"
+}
+
+verify() {
+    echo "Verify DEK"
+    query $DEK_HOME/inventory.yml "${INVENTORY[@]}" 
+    query $DEK_HOME/inventory/default/group_vars/all/10-default.yml "${VARS[@]}"
+    echo "Verify DEK Done"
+}
+
+deploy() {
+    echo "Deploy DEK"
+    $DEK_HOME/deploy.sh
+    echo "Deploy DEK Done"
+}
+
+usage() {
+    echo "Usage: $(basename $0) {deps|update|verify|deploy}"
+}
+
+main() {
+    case $1 in
+        deps )
+            deps
+            ;;
+        update )
+            check
+            update
+            ;;
+        verify )
+            check
+            verify
+            ;;
+        deploy )
+            check
+            deploy
+            ;;
+        * )
+            usage
+            ;;
+    esac
+}
+
+main $*
