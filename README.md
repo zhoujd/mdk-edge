@@ -1,7 +1,7 @@
 README
 ======
 
-## Clone with zzokapi included
+## Clone
 
     $ git clone https://github.com/zhoujd/mdk-edge --recursive
 
