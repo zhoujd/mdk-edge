@@ -1,6 +1,10 @@
 README
 ======
 
+## Clone with zzokapi included
+
+    $ git clone https://github.com/zhoujd/mdk-edge --recursive
+
 ## Deploy DEK single node with script
 
     $ cd script
