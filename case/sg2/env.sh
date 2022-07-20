@@ -26,9 +26,9 @@ VARS=(
     '.e810_driver_enable=false'
     '.platform_attestation_node=false'
     '.sgx_enabled=false'
+    '.telemetry_enable=false'
     ## sg2
     '.gpu_enabled=true'
     '.gpu_share_enable=true'
     '.gpu_share_dev_num=40'
-    '.gpu_kernel_force_build=false'
 )
