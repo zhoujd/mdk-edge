@@ -17,8 +17,12 @@ deps() {
 }
 
 check() {
+    if [ -z $(command -v yq) ] ; then
+        echo "Cannot find yq, please run '$ sg2 deps'"
+        exit 1
+    fi
     if [ ! -f "$DEK_HOME/single_node_network_edge.yml" ]; then
-        echo "Can't find DEK, please set env DEK_HOME before run the script"
+        echo "Cannot find DEK, please set env DEK_HOME before run the script"
         exit 1
     fi
 }
