@@ -18,9 +18,10 @@ deps() {
 
 check() {
     if [ -z $(command -v yq) ] ; then
-        echo "Cannot find yq, please run '$ sg2 deps'"
+        echo "Cannot find yq, please run \'$(basename $0) deps\'"
         exit 1
     fi
+    
     if [ ! -f "$DEK_HOME/single_node_network_edge.yml" ]; then
         echo "Cannot find DEK, please set env DEK_HOME before run the script"
         exit 1
@@ -29,14 +30,14 @@ check() {
 
 update() {
     echo "Update DEK"
-    config $DEK_HOME/inventory.yml "${INVENTORY[@]}" 
+    config $DEK_HOME/inventory.yml "${INVENTORY[@]}"
     config $DEK_HOME/inventory/default/group_vars/all/10-default.yml "${VARS[@]}"
     echo "Update DEK Done"
 }
 
 verify() {
     echo "Verify DEK"
-    query $DEK_HOME/inventory.yml "${INVENTORY[@]}" 
+    query $DEK_HOME/inventory.yml "${INVENTORY[@]}"
     query $DEK_HOME/inventory/default/group_vars/all/10-default.yml "${VARS[@]}"
     echo "Verify DEK Done"
 }
