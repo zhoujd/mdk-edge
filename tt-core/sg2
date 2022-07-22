@@ -18,7 +18,7 @@ deps() {
 
 check() {
     if [ -z $(command -v yq) ] ; then
-        echo "Cannot find yq, please run \'$(basename $0) deps\'"
+        echo "Cannot find yq, please run '$(basename $0) deps'"
         exit 1
     fi
     
