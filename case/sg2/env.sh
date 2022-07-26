@@ -1,8 +1,8 @@
 ## env.sh
 
 ## inventory.yml
-export CONTROLLER_HOST=${SINGLE_HOST:-127.0.0.1}
-export NODE_HOST=${SINGLE_HOST:-127.0.0.1}
+export CONTROLLER_HOST=${CONTROLLER_HOST:-127.0.0.1}
+export NODE_HOST=${NODE_HOST:-127.0.0.1}
 export DEK_HOME=${DEK_HOME:-`pwd`}
 INVENTORY=(
     '.all.vars.single_node_deployment=true'
