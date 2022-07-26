@@ -52,7 +52,8 @@ usage() {
     echo "\
 Usage: $(basename $0) {deps|update|verify|deploy}
 Single node deployment: 
-  $ export SINGLE_HOST=a.b.c.d
+  $ export CONTROLLER_HOST=a.b.c.d
+  $ export NODE_HOST=\$CONTROLLER_HOST
 Multi-Node deployment: 
   $ export CONTROLLER_HOST=a.b.c.d
   $ export NODE_HOST=e.f.g.h
