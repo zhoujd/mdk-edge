@@ -1,12 +1,13 @@
 ## env.sh
 
 ## inventory.yml
-export SINGLE_HOST=${SINGLE_HOST:-127.0.0.1}
+export CONTROLLER_HOST=${SINGLE_HOST:-127.0.0.1}
+export NODE_HOST=${SINGLE_HOST:-127.0.0.1}
 export DEK_HOME=${DEK_HOME:-`pwd`}
 INVENTORY=(
     '.all.vars.single_node_deployment=true'
-    '.controller_group.hosts.controller.ansible_host=strenv(SINGLE_HOST)'
-    '.edgenode_group.hosts.node01.ansible_host=strenv(SINGLE_HOST)'
+    '.controller_group.hosts.controller.ansible_host=strenv(CONTROLLER_HOST)'
+    '.edgenode_group.hosts.node01.ansible_host=strenv(NODE_HOST)'
 )
 
 ## inventory/default/group_vars/all/10-default.yml
