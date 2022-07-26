@@ -49,7 +49,11 @@ deploy() {
 }
 
 usage() {
-    echo "Usage: $(basename $0) {deps|update|verify|deploy}"
+    echo "\
+Usage: $(basename $0) {deps|update|verify|deploy}
+Single node deployment: 
+  $ export SINGLE_HOST=a.b.c.d
+Note: please export the env varibles before run the commands"    
 }
 
 main() {
