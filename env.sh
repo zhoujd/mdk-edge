@@ -12,4 +12,3 @@ add_path() {
 }
 
 add_path $SCRIPT_ROOT
-unset add_path
