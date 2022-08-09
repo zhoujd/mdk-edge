@@ -42,7 +42,7 @@ verify() {
     echo "Verify DEK Done"
 }
 
-check() {
+check_sg2() {
     echo "Check sg2 status"
     ansible-playbook -i $DEK_HOME/inventory.yml $TT_ROOT/check/check.yml
 }
@@ -81,6 +81,10 @@ main() {
         deploy )
             check
             deploy
+            ;;
+        check_sg2 )
+            check
+            check_sg2
             ;;
         * )
             usage
