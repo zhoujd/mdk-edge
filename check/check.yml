@@ -20,6 +20,12 @@
           kubectl get nodes -l node-role.kubernetes.io/control-plane='' -o jsonpath='{.items[0].metadata.name}'
         register: controller_node_name
         changed_when: false
+      
+      - name: get edge node name
+        command: >
+          kubectl get nodes -l node-role.kubernetes.io/worker='worker' -o jsonpath='{.items[0].metadata.name}'
+        register: edge_node_name
+        changed_when: false
 
     - name: wait for kube-system pods of the controller to be running
       command: >
@@ -27,18 +33,24 @@
         --field-selector spec.nodeName={{ controller_node_name.stdout }} --timeout=300s
       changed_when: false 
 
-    - name: wait for kube-system pods of the controller to be running
+    - name: wait for gpu device plugin pods of the controller to be running
       command: >
         kubectl wait --for=condition=Ready pod --namespace=inteldeviceplugins-system
-        --field-selector spec.nodeName={{ controller_node_name.stdout }} --timeout=300s
+        --field-selector spec.nodeName={{ edge_node_name.stdout }} --timeout=300s
       changed_when: false 
 
-    - name: wait for kube-system pods of the controller to be running
+    - name: wait for nfd master pods of the controller to be running
       command: >
         kubectl wait --for=condition=Ready pod --namespace=smartedge-system
         --field-selector spec.nodeName={{ controller_node_name.stdout }} --timeout=300s
       changed_when: false 
-
+    
+    - name: wait for nfd worker pods of the controller to be running
+      command: >
+        kubectl wait --for=condition=Ready pod --namespace=smartedge-system
+        --field-selector spec.nodeName={{ edge_node_name.stdout }} --timeout=300s
+      changed_when: false 
+ 
     - name: check sg2 pod status
       debug:
         msg: "gpu plugin pod not running"
