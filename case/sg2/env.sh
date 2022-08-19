@@ -39,4 +39,7 @@ VARS=(
     '.gpu_enabled=true'
     '.gpu_share_enable=true'
     '.gpu_share_dev_num=40'
+    '.gpu_kernel_force_build=true'
+    '.gpu_sriov_enable=false'
+    '.gpu_sriov_num=4'
 )
