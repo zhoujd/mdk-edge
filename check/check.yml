@@ -1,0 +1,83 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2022 Intel Corporation
+
+- hosts: controller_group
+  tasks:
+    - name: get SG2 pod status
+      shell: "kubectl -n inteldeviceplugins-system get pod | grep Running | wc -l"
+      register: gpu_plugin_status
+      changed_when: false
+
+    - name: get nfd pod status
+      shell: "kubectl -n smartedge-system get pods | grep Running | wc -l"
+      register: nfd_status
+      changed_when: false
+   
+    - name: wait for kube-system pods and get name of Multus pod
+      block:
+      - name: get controller node name
+        command: >
+          kubectl get nodes -l node-role.kubernetes.io/control-plane='' -o jsonpath='{.items[0].metadata.name}'
+        register: controller_node_name
+        changed_when: false
+      
+      - name: get edge node name
+        command: >
+          kubectl get nodes -l node-role.kubernetes.io/worker='worker' -o jsonpath='{.items[0].metadata.name}'
+        register: edge_node_name
+        changed_when: false
+
+    - name: wait for kube-system pods of the controller to be running
+      command: >
+        kubectl wait --for=condition=Ready pod --namespace=kube-system
+        --field-selector spec.nodeName={{ controller_node_name.stdout }} --timeout=300s
+      changed_when: false 
+
+    - name: wait for gpu device plugin pods of the controller to be running
+      command: >
+        kubectl wait --for=condition=Ready pod --namespace=inteldeviceplugins-system
+        --field-selector spec.nodeName={{ edge_node_name.stdout }} --timeout=300s
+      changed_when: false 
+
+    - name: wait for nfd master pods of the controller to be running
+      command: >
+        kubectl wait --for=condition=Ready pod --namespace=smartedge-system
+        --field-selector spec.nodeName={{ controller_node_name.stdout }} --timeout=300s
+      changed_when: false 
+    
+    - name: wait for nfd worker pods of the controller to be running
+      command: >
+        kubectl wait --for=condition=Ready pod --namespace=smartedge-system
+        --field-selector spec.nodeName={{ edge_node_name.stdout }} --timeout=300s
+      changed_when: false 
+ 
+    - name: check sg2 pod status
+      debug:
+        msg: "gpu plugin pod not running"
+      when: gpu_plugin_status == "0"
+
+    - name: check nfd pod status
+      debug:
+        msg: "nfd pod status is not running"
+      when: nfd_status.stdout != "2"
+
+- hosts: edgenode_group
+  tasks:
+    - name: check SG2 GUC status
+      shell: "cat /sys/kernel/debug/dri/*/gt0/uc/guc_info | grep RUNNING"
+      register: guc_status
+      ignore_errors: yes
+      become: yes
+      changed_when: false
+
+    - name: check SG2 HUC status
+      shell: "cat /sys/kernel/debug/dri/*/gt0/uc/huc_info | grep RUNNING"
+      register: huc_status
+      ignore_errors: yes
+      become: yes
+      changed_when: false
+    
+    - name: check SG2 kernel version
+      command: uname -r
+      register: kernel_version
+      changed_when: false
