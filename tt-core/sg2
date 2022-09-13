@@ -16,7 +16,7 @@ deps() {
     echo "Install deps Done"
 }
 
-check() {
+precheck() {
     if [ -z $(command -v yq) ] ; then
         echo "Cannot find yq, please run '$(basename $0) deps'"
         exit 1
@@ -42,9 +42,9 @@ verify() {
     echo "Verify DEK Done"
 }
 
-check_sg2() {
+check() {
     echo "Check sg2 status"
-    ansible-playbook -i $DEK_HOME/inventory.yml $TT_ROOT/check/check.yml
+    ansible-playbook -i $DEK_HOME/inventory.yml $TT_ROOT/ansible/sg2/check.yml
 }
 
 deploy() {
@@ -55,7 +55,7 @@ deploy() {
 
 usage() {
     echo "\
-Usage: $(basename $0) {deps|update|verify|deploy}
+Usage: $(basename $0) {deps|update|verify|deploy|check}
 Single node deployment: 
   $ export CONTROLLER_HOST=a.b.c.d
   $ export NODE_HOST=\$CONTROLLER_HOST
@@ -71,20 +71,20 @@ main() {
             deps
             ;;
         update )
-            check
+            precheck
             update
             ;;
         verify )
-            check
+            precheck
             verify
             ;;
         deploy )
-            check
+            precheck
             deploy
             ;;
-        check_sg2 )
+        check )
+            precheck
             check
-            check_sg2
             ;;
         * )
             usage
