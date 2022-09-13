@@ -16,7 +16,7 @@ deps() {
     echo "Install deps Done"
 }
 
-check() {
+precheck() {
     if [ -z $(command -v yq) ] ; then
         echo "Cannot find yq, please run '$(basename $0) deps'"
         exit 1
@@ -62,15 +62,15 @@ main() {
             deps
             ;;
         update )
-            check
+            precheck
             update
             ;;
         verify )
-            check
+            precheck
             verify
             ;;
         deploy )
-            check
+            precheck
             deploy
             ;;
         * )
