@@ -5,7 +5,7 @@ README
 
     $ git clone https://github.com/zhoujd/mdk-edge --recursive
 
-## Deploy DEK single node with script
+## Deploy DEK single node with script (Not Recommended)
 
     $ cd script
     $ ./deploy-single
@@ -15,7 +15,7 @@ README
     $ ./deploy-single verify
     $ ./deploy-single deploy
 
-## Deploy DEK single node with tt
+## Deploy DEK single node with tt (Recommended)
 
     $ . env.sh
     $ tt
