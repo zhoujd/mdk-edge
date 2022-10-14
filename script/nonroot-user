@@ -3,8 +3,6 @@
 if [ $# != 1 ]; then
     echo "Usage: Environment variable NR_USER and NR_PASSWD can be set before run the command line
 Examples -
-$ export NR_USER=<user>
-$ export NR_PASSWD=<passwd>
 $ $(basename $0) root@host
 $ $(basename $0) '-J host1,host2 root@host'"
     exit 1
