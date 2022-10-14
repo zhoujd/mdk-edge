@@ -3,8 +3,6 @@
 ## Script path
 SCRIPT_ROOT=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
-. $SCRIPT_ROOT/env.sh
-
 export SINGLE_HOST=${SINGLE_HOST:-127.0.0.1}
 export DEK_HOME=${DEK_HOME:-"$SCRIPT_ROOT"}
 export HTTP_PROXY=${HTTP_PROXY:-""}
@@ -36,6 +34,27 @@ VARS_DEF=(
 ## assign default
 INVENTORY=("${INVENTORY[@]:-${INVENTORY_DEF[@]}}")
 VARS=("${VARS[@]:-${VARS_DEF[@]}}")
+
+config() {
+    local file=$1
+    shift
+    local vars=("$@")
+    for i in "${vars[@]}"; do
+        echo "[$file][update] $i"
+        yq -i $i $file
+    done
+}
+
+query() {
+    local file=$1
+    shift
+    local vars=("$@")
+    for i in "${vars[@]}"; do
+        key=(${i//=/ })
+        value=`yq ${key[0]} $file`
+        echo "[$file][query] $key=$value"
+    done
+}
 
 deps() {
     echo "Install deps"
@@ -79,7 +98,11 @@ deploy() {
 }
 
 usage() {
-    echo "Usage: $(basename $0) {deps|update|verify|deploy}"
+    echo "\
+Usage: $(basename $0) {deps|update|verify|deploy}
+Single node deployment: 
+$ export SINGLE_HOST=a.b.c.d
+Note: please export the env varibles before run the commands"    
 }
 
 main() {
