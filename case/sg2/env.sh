@@ -12,7 +12,7 @@ if [ "$CONTROLLER_HOST" = "$NODE_HOST" ]; then
 fi
 
 INVENTORY=(
-    '.all.vars.single_node_deployment=strenv(SINGLE_FLAG)'
+    ".all.vars.single_node_deployment=${SINGLE_FLAG}"
     '.controller_group.hosts.controller.ansible_host=strenv(CONTROLLER_HOST)'
     '.edgenode_group.hosts.node01.ansible_host=strenv(NODE_HOST)'
 )
