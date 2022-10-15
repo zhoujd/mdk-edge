@@ -11,6 +11,7 @@ HOST=$1
 HOSTNAME=$2
 HOSTS=/etc/hosts
 
+echo "HOST: $HOST"
 ssh -T $HOST << EOSSH
 hostnamectl set-hostname $HOSTNAME
 
