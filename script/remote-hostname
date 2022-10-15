@@ -1,7 +1,8 @@
 #!/bin/bash
 
 if [ $# != 2 ]; then
-    echo "Usage: add hostname to remote machine
+    echo "Usage: Add hostname to remote machine
+Examples -
 $ $(basename $0) root@host hostname
 $ $(basename $0) '-J host1,host2 root@host' hostname"    
     exit 1
