@@ -14,12 +14,9 @@ HOSTS=/etc/hosts
 echo "HOST: $HOST"
 ssh -T $HOST << EOSSH
 hostnamectl set-hostname $HOSTNAME
-
 sudo sed -i "s/^127.*/& ${HOSTNAME}/g" $HOSTS
 sudo sed -i "s/^::1.*/& ${HOSTNAME}/g" $HOSTS
-
 cat $HOSTS
-
 EOSSH
 
 echo "ssh $HOSTNAME with $HOST done"
