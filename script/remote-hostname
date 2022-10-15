@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ $# != 2 ]; then
+    echo "Usage: add hostname to remote machine
+$ $(basename $0) root@host hostname
+$ $(basename $0) '-J host1,host2 root@host' hostname"    
+    exit 1
+fi
+
+HOST=$1
+HOSTNAME=$2
+HOSTS=/etc/hosts
+
+ssh -T $HOST << EOSSH
+hostnamectl set-hostname $HOSTNAME
+
+sudo sed -i "s/^127.*/& ${HOSTNAME}/g" $HOSTS
+sudo sed -i "s/^::1.*/& ${HOSTNAME}/g" $HOSTS
+
+cat $HOSTS
+
+EOSSH
+
+echo "ssh $HOSTNAME with $HOST done"
