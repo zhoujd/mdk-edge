@@ -8,8 +8,8 @@ fi
 HOST=$1
 FILE=/etc/hosts
 
-sudo sed -i "s/^127.*/& ${HOSTNAME}/g" $FILE
-sudo sed -i "s/^::1.*/& ${HOSTNAME}/g" $FILE
+sudo sed -i "s/^127.*/& ${HOST}/g" $FILE
+sudo sed -i "s/^::1.*/& ${HOST}/g" $FILE
 
 cat $FILE
 
