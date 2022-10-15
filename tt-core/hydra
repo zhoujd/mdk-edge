@@ -5,7 +5,7 @@ SCRIPT_ROOT=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 TT_ROOT=$(cd $SCRIPT_ROOT/.. && pwd)
 
 . $TT_ROOT/lib/env.sh
-. $TT_ROOT/case/simple/env.sh
+. $TT_ROOT/case/hydra/env.sh
 
 deps() {
     echo "Install deps"
