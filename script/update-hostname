@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ $# != 1 ]; then
+   echo "Usage: $(basename $0) {hostname}"
+   exit 1
+fi
+
+HOSTNAME=$1
+sudo sed -i "s/127.0.0.1 localhost/127.0.0.1 localhost ${HOSTNAME}/" /etc/hosts
+sudo sed -i "s/::1     ip6-localhost ip6-loopback/::1     ip6-localhost ip6-loopback ${HOSTNAME}/" /etc/hosts
+
+echo "Update hostname Done"
