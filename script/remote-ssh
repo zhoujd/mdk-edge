@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ $# = 0 ]; then
+    echo "Usage: Set time on remote machine
+Examples -
+$ $(basename $0) user@host1 user@host2
+$ $(basename $0) '-J hostA,hostB root@host1' '-J hostA,hostB user@host2'"    
+    exit 1
+fi
+
+copy() {
+    for HOST in $1 $2 $3 $4 $5 $6 $7 $8 $9; do
+        echo "HOST: $HOST"
+        ssh-copy-id $HOST
+    done
+}
+
+copy $*
+
+echo "ssh copy done"
